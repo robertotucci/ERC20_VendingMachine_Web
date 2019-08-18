@@ -1,4 +1,7 @@
+
 import React, { Component } from "react";
+
+
 import CRUDTable,
 {
   Fields,
@@ -7,8 +10,16 @@ import CRUDTable,
   UpdateForm,
   DeleteForm,
 } from 'react-crud-table';
-
+import web3 from './web3';
+import ERC20Transaction from './ERC20Transaction';
+import { configureUrlQuery } from 'react-url-query';
+import createHistory from 'history/createBrowserHistory';
 import './index.css';
+const history = createHistory();
+ 
+configureUrlQuery({ history });
+
+
 require('dotenv').config();
 
 const PriceRenderer = ({ field }) => <textarea {...field} />;
@@ -47,7 +58,17 @@ class Home extends Component {
 
   async fetchItems (payload){
     tasks = [];
-    console.log(process.env.REACT_APP_AWS_API_GETALL);
+    const search = history.location.search; 
+    const params = new URLSearchParams(search);
+    const foo = params.get('test'); 
+    console.log(foo);
+
+
+    const accounts = await web3.eth.getAccounts();
+    await ERC20Transaction.methods.balanceOf(accounts[0]).call().then(value =>
+      {
+        console.log(value.toString());
+      });
     await fetch(process.env.REACT_APP_AWS_API_GETALL , {method: 'GET'})
     .then(res => res.json())
     .then((data) => 

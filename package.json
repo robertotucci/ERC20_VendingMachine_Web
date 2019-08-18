@@ -4,10 +4,13 @@
   "private": true,
   "dependencies": {
     "dotenv": "^8.0.0",
+    "history": "^4.9.0",
     "react": "^16.8.6",
     "react-crud-table": "0.0.8",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "react-url-query": "^1.4.0",
+    "web3": "^1.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
